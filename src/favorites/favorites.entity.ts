@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Account } from 'src/account/accounts.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Favorites {
@@ -12,4 +13,9 @@ export class Favorites {
   previewUrl: string;
   @Column()
   trackId: number;
+  @ManyToOne(() => Account, (account) => account.favorites, {
+    cascade: true,
+    eager: true,
+  })
+  account: Account;
 }

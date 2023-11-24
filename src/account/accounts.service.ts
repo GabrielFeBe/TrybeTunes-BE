@@ -15,6 +15,9 @@ export class AccountsService {
     const response: Account | null = await this.accountsRepository.findOne({
       where: { id },
     });
+    response.favorites = response.favorites.filter(
+      (favMusic) => Number(favMusic.userId) === id,
+    );
     return response;
   }
 

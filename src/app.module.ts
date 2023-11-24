@@ -4,6 +4,9 @@ import { AccountsModule } from './account/accounts.module';
 import { AuthModule } from './auth/auth.module';
 import { Account } from './account/accounts.entity';
 import { Favorites } from './favorites/favorites.entity';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './auth/auth.guard';
+import { FavoritesModule } from './favorites/favorites.module';
 
 @Module({
   imports: [
@@ -19,8 +22,13 @@ import { Favorites } from './favorites/favorites.entity';
     }),
     AccountsModule,
     AuthModule,
+    FavoritesModule,
   ],
-  controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
 })
 export class AppModule {}
