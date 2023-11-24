@@ -14,4 +14,8 @@ export class FavoritesService {
   async create(favorite: FavoritesDto): Promise<Favorites> {
     return await this.favoritesRepository.save(favorite);
   }
+
+  async remove(id: number): Promise<void> {
+    await this.favoritesRepository.delete(id);
+  }
 }

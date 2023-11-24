@@ -6,16 +6,13 @@ export class Favorites {
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
-  userId: number;
+  accountId: number;
   @Column()
   trackName: string;
   @Column()
   previewUrl: string;
   @Column()
   trackId: number;
-  @ManyToOne(() => Account, (account) => account.favorites, {
-    cascade: true,
-    eager: true,
-  })
+  @ManyToOne(() => Account, (account) => account.favorites)
   account: Account;
 }

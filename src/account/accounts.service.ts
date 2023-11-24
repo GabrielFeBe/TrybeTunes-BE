@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Account } from './accounts.entity';
 import { Repository } from 'typeorm';
@@ -15,9 +19,7 @@ export class AccountsService {
     const response: Account | null = await this.accountsRepository.findOne({
       where: { id },
     });
-    response.favorites = response.favorites.filter(
-      (favMusic) => Number(favMusic.userId) === id,
-    );
+
     return response;
   }
 
@@ -30,6 +32,10 @@ export class AccountsService {
   }
 
   async create(account: AccountDto): Promise<Account> {
+    const lookingForValidEmail = await this.findByEmail(account.email);
+    if (lookingForValidEmail) {
+      throw new BadRequestException('Email already exists');
+    }
     return await this.accountsRepository.save(account);
   }
 }

@@ -11,6 +11,9 @@ export class Account {
   email: string;
   @Column()
   password: string;
-  @OneToMany(() => Favorites, (favorites) => favorites.account)
+  @OneToMany(() => Favorites, (favorites) => favorites.account, {
+    eager: true,
+    cascade: true,
+  })
   favorites: Favorites[];
 }

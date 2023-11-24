@@ -4,9 +4,9 @@ export class FavoritesDto {
   @IsOptional()
   @IsInt({ message: 'Id must be an integer' })
   id?: number;
-  @IsNotEmpty({ message: 'UserId is required' })
-  @IsInt({ message: 'UserId must be an integer' })
-  userId: number;
+  @IsNotEmpty({ message: 'accountId is required' })
+  @IsInt({ message: 'accountId must be an integer' })
+  accountId: number;
   @IsNotEmpty({ message: 'TrackName is required' })
   @IsString({ message: 'TrackName must be a string' })
   trackName: string;
