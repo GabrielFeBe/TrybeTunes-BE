@@ -1,8 +1,10 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
   UsePipes,
   ValidationPipe,
@@ -19,6 +21,15 @@ export class AccountsController {
   @HttpCode(HttpStatus.CREATED)
   async create(@Body() accountt: AccountDto) {
     const response = await this.accountsService.create(accountt);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...rest } = response;
+    return rest;
+  }
+
+  @Get(':id')
+  @HttpCode(HttpStatus.OK)
+  async findOne(@Param() { id }: { id: string }) {
+    const response = await this.accountsService.findOne(Number(id));
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...rest } = response;
     return rest;

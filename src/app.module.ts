@@ -1,19 +1,24 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccountsModule } from './account/accounts.module';
+import { AuthModule } from './auth/auth.module';
+import { Account } from './account/accounts.entity';
+import { Favorites } from './favorites/favorites.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'host', // Use the name of the service from docker-compose.yml
-      port: 5432, // default port for postgres
-      username: 'postgres',
-      password: '102030', // password defined in docker-compose.yml
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      database: 'ContactDB',
+      type: 'mysql',
+      host: 'localhost', // Use the name of the service from docker-compose.yml
+      port: 3306, // default port for postgres
+      username: 'root',
+      password: '123456', // password defined in docker-compose.yml
+      entities: [Account, Favorites],
       synchronize: true,
     }),
     AccountsModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
