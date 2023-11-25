@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Account } from './accounts.entity';
 import { Repository } from 'typeorm';
@@ -27,7 +23,6 @@ export class AccountsService {
     const response: Account | null = await this.accountsRepository.findOne({
       where: { email },
     });
-    if (!response) throw new NotFoundException('Account not found');
     return response;
   }
 

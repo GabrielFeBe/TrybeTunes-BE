@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AccountsService } from 'src/account/accounts.service';
 
@@ -11,6 +15,7 @@ export class AuthService {
 
   async signIn(username: string, pass: string) {
     const user = await this.accountsService.findByEmail(username);
+    if (!user) throw new NotFoundException('user not found');
     if (user?.password !== pass) {
       throw new UnauthorizedException('invalid credentials');
     }

@@ -11,6 +11,10 @@ export class Account {
   email: string;
   @Column()
   password: string;
+  @Column({ type: 'text' })
+  description: string;
+  @Column({ type: 'text' })
+  image: string;
   @OneToMany(() => Favorites, (favorites) => favorites.account, {
     eager: true,
     cascade: true,

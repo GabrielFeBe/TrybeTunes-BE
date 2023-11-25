@@ -22,4 +22,7 @@ export class AccountDto {
   @IsNotEmpty({ message: 'Description is required' })
   @IsString({ message: 'Description must be a string' })
   description: string;
+  @IsNotEmpty()
+  @IsString({ message: 'Avatar must be a string' })
+  image: string;
 }
