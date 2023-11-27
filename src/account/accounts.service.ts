@@ -33,4 +33,17 @@ export class AccountsService {
     }
     return await this.accountsRepository.save(account);
   }
+  async update(id: number, account: AccountDto): Promise<Account> {
+    const updatingAccount = await this.findOne(id);
+    if (!updatingAccount) {
+      throw new BadRequestException('Account not found');
+    }
+    updatingAccount.email = account.email;
+    updatingAccount.password = account.password;
+    updatingAccount.name = account.name;
+    updatingAccount.description = account.description;
+    updatingAccount.image = account.image;
+    const updatedAccount = await this.accountsRepository.save(updatingAccount);
+    return updatedAccount;
+  }
 }

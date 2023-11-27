@@ -7,6 +7,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Put,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -34,7 +35,18 @@ export class AccountsController {
   async findOne(@Param() { id }: { id: string }) {
     if (typeof Number(id) !== 'number')
       throw new BadRequestException('Invalid id');
-    const response = await this.accountsService.findOne(Number(id));
+    console.log(+id);
+    const response = await this.accountsService.findOne(+id);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...rest } = response;
+    return rest;
+  }
+  @Put(':id')
+  @HttpCode(HttpStatus.OK)
+  async update(@Param() { id }: { id: string }, @Body() account: AccountDto) {
+    if (typeof Number(id) !== 'number')
+      throw new BadRequestException('Invalid id');
+    const response = await this.accountsService.update(Number(id), account);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...rest } = response;
     return rest;
