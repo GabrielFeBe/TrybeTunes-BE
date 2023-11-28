@@ -1,73 +1,64 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Back-End do TrybeTunes
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Descrição
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+O back-end do projeto é desenvolvido em Nest.js e utiliza o TypeORM para lidar com as operações de banco de dados. Ele oferece funcionalidades relacionadas às contas de usuários, autenticação, e gerenciamento de favoritos. O sistema de autenticação é baseado em tokens JWT (JSON Web Token), proporcionando uma camada de segurança para rotas restritas.
 
-## Description
+## Estrutura de Diretórios
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **src/**
+  - **account/**
+    - `account.controller.ts`: Controller para criar, obter e editar contas de usuário.
+    - `account.service.ts`: Service para manipulação de dados relacionados a contas de usuário.
+    - `account.entity.ts`: Entity TypeORM para a tabela de contas no banco de dados.
+  - **auth/**
+    - `auth.controller.ts`: Controller para autenticação, incluindo a geração de tokens JWT.
+    - `auth.guard.ts`: Guard de autenticação para restringir o acesso a rotas protegidas.
+  - **favorites/**
+    - `favorites.controller.ts`: Controller para criar e deletar favoritos, associando-os a uma conta específica.
+    - `favorites.service.ts`: Service para manipulação de dados relacionados a favoritos.
+    - `favorites.entity.ts`: Entity TypeORM para a tabela de favoritos no banco de dados.
+  - **common/**
+    - `utils/`: Decoradores personalizados, incluindo `@public()` para rotas sem validação de token.
 
-## Installation
+## Rotas Principais
 
-```bash
-$ npm install
-```
+- **/account/**
 
-## Running the app
+  - `POST /create`: Cria uma nova conta de usuário.
+  - `GET /:id`: Obtém os detalhes de uma conta específica.
+  - `PUT /:id`: Edita os detalhes de uma conta existente.
 
-```bash
-# development
-$ npm run start
+- **/auth/**
 
-# watch mode
-$ npm run start:dev
+  - `POST /login`: Autentica um usuário e gera um token JWT.
 
-# production mode
-$ npm run start:prod
-```
+- **/favorites/**
+  - `POST /create`: Cria um novo favorito associado a uma conta específica.
+  - `DELETE /:id`: Deleta um favorito específico.
 
-## Test
+## Uso de Validações
 
-```bash
-# unit tests
-$ npm run test
+O projeto utiliza o `class-validator` para realizar validações de dados, garantindo a integridade e consistência das informações fornecidas nas requisições.
 
-# e2e tests
-$ npm run test:e2e
+## Instalação e Execução
 
-# test coverage
-$ npm run test:cov
-```
+1. Clone o repositório: `git clone git@github.com:GabrielFeBe/TrybeTunes-BE.git`
+2. Instale as dependências: `npm install`
+3. Configure o banco de dados no arquivo `app.module.ts`
+4. Execute o servidor: `npm start`
 
-## Support
+## Tecnologias Utilizadas
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- Nest.js
+- TypeORM
+- JSON Web Token (JWT)
+- Class Validator
 
-## Stay in touch
+## Segurança
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Não foi criada validação para checar se o usuario que está atualizando conta, deletando favorito ou criando favorito é o mesmo que está logado, caso queira fazer é simples não fiz pois não é necessario para o projeto.
 
-## License
+## Contribuição
 
-Nest is [MIT licensed](LICENSE).
+Contribuições são bem-vindas! Para sugestões, problemas ou melhorias, por favor, abra uma issue ou envie um pull request.
